@@ -19,4 +19,4 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class AngularView(TemplateView):
-    template_name = 'base.html'
+    template_name = 'index.html'
