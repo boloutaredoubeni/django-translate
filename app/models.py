@@ -1,6 +1,5 @@
 from django.db import models
 from .services import translate
-from django.contrib.auth.models import User as auth_user
 
 
 # class User(auth_user):
