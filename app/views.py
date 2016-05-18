@@ -1,5 +1,6 @@
 from app.models import Query
-from rest_framework import permissions, viewsets
+from rest_framework import permissions, viewsets, status
+from rest_framework.response import Response
 from app.permissions import IsOwnerOrReadOnly
 from app.serializers import QuerySerializer
 from django.views.generic.base import TemplateView
@@ -12,7 +13,20 @@ class QueryViewSet(viewsets.ModelViewSet):
                           # IsOwnerOrReadOnly,)
 
     def create(self, request):
-        pass
+        if request.method == 'POST':
+            data = {
+                'source': request.data['source'],
+                'lang': 'en',
+                'translation': 'none',
+            }
+            serializer = self.serializer_class(data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data,
+                                status=status.HTTP_201_CREATED)
+
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, pk=None):
         pass
