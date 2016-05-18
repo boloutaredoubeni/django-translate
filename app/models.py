@@ -9,7 +9,6 @@ class Query(models.Model):
     orignal_text = models.TextField()
     original_lang = models.CharField(max_length=4)
     translation = models.TextField()
-    translated_lang = models.CharField(max_length=4)
 
     class Meta:
         ordering = ('created',)

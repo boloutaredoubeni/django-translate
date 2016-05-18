@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
-from rest_framework import permissions
-from rest_framework import viewsets
 from app.models import Query
+from rest_framework import permissions, viewsets
 from app.permissions import IsOwnerOrReadOnly
 from app.serializers import QuerySerializer, UserSerializer
+from django.views.generic.base import TemplateView
 
 
 class QueryViewSet(viewsets.ModelViewSet):
@@ -16,3 +16,7 @@ class QueryViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class AngularView(TemplateView):
+    template_name = 'base.html'
