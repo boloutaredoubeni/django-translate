@@ -1,21 +1,36 @@
 from django.core.urlresolvers import reverse, resolve
 from rest_framework import status
 from rest_framework.test import APITestCase, APIRequestFactory
-from django.contrib.auth.models import User
 from .models import Query
 from .views import QueryViewSet
 import factory
+from factory import fuzzy
+import random
 
 
-class UserFactory(factory.Factory):
-    first_name = factory.Faker('first_name')
-    last_name = factory.Faker('last_name')
-    email = factory.LazyAttribute(
-        lambda a: '{0}.{1}@example.com'
-        .format(a.first_name, a.last_name).lower())
+# class UserFactory(factory.DjangoModelFactory):
+#     username = fuzzy.FuzzyText()
+#     first_name = factory.Faker('first_name')
+#     last_name = factory.Faker('last_name')
+#     email = factory.LazyAttribute(
+#         lambda a: '{0}.{1}@example.com'
+#         .format(a.first_name, a.last_name).lower())
+
+#     class Meta:
+#         model = User
+
+
+class QueryFactory(factory.DjangoModelFactory):
+    source = random.choice([
+        'Bonjour, ca va?',
+        'Hola, como estas?',
+        "Hallo, wie geht's dir",
+        'Parlez-vous francais?'
+        'Tu habla espangol?',
+        'Sprechen sie  deutsch'])
 
     class Meta:
-        model = User
+        model = Query
 
 
 class RootAPITest(APITestCase):

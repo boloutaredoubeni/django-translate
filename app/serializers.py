@@ -1,27 +1,21 @@
 from rest_framework import serializers
 from app.models import Query
-from django.contrib.auth.models import User
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    creator = serializers.ReadOnlyField(source='creator.username')
+# class UserSerializer(serializers.HyperlinkedModelSerializer):
 
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'queries')
+#     class Meta:
+#         model = User
+#         fields = ('url', 'username', 'first_name', 'last_name',)
 
 
 class QuerySerializer(serializers.HyperlinkedModelSerializer):
-    queries = serializers.HyperlinkedRelatedField(queryset=Query.objects.all(),
-                                                  view_name='query-detail',
-                                                  many=True)
 
     class Meta:
         model = Query
         fields = ('created',
                   'updated',
-                  'creator',
-                  'orignal_text',
-                  'original_lang',
-                  'translation',
-                  'translated_lang',)
+                  # 'creator',
+                  'source',
+                  'lang',
+                  'translation',)

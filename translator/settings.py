@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=a(@j9ymavxli6u=4*-vstm29q8-*(2wqa98)y2plfl$f9@8+o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get('DEBUG', False))
 
 ALLOWED_HOSTS = []
 
@@ -140,3 +140,5 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     # '/var/www/static/',
 ]
+
+GOOGLE_TRANSLATE_KEY = 'AIzaSyCBzeubceaQKRs5df05bXi0nkRqlwvKlts'

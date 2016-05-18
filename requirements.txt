@@ -4,4 +4,6 @@ psycopg2
 langdetect
 django-extensions
 factory_boy
+google-api-python-client
+python-dotenv
 
