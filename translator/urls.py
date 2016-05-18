@@ -15,23 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.conf import settings
 from rest_framework.routers import DefaultRouter
 from app import views
-
-
-# if settings.DEBUG:
-
-#     from app.tests import QueryFactory
-#     from app.models import Query
-
-#     import sys
-
-#     for i in range(10):
-#         query = QueryFactory.build()
-#         query_fields = query._meta.get_fields()
-#         query_obj = {field.name: getattr(query, field.name) for field in query_fields if hasattr(query, field.name)}
-#         Query.objects.get_or_create(**query_obj)
 
 router = DefaultRouter()
 router.register(r'queries', views.QueryViewSet)
