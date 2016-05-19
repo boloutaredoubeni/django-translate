@@ -17,7 +17,7 @@ angular
     $stateProvider
       .state('results', {
         url: '/translations',
-        templateUrl: 'templates/main.html',
+        templateUrl: 'templates/results.html',
         controller: 'ResultsController',
       })
       .state('input', {
@@ -59,8 +59,26 @@ angular
         );
     };
   }])
-  .controller('ResultsController', ['$scope', function($scope) {
-    $scope.message = 'Hello From Results';
+  .controller('ResultsController', ['$scope', 'TranslationService', function($scope, TranslationService) {
+    $scope.queries = [];
+    $scope.errorMessage = '';
+    $scope.$on('$stateChangeSuccess', function() {
+      TranslationService
+        .list()
+        .then(
+          function(response) {
+            console.dir(response);
+            if (response.status !==  200 ) {
+              $scope.errorMessage = response.data.detail;
+              return;
+            }
+            $scope.queries = response.data;
+          },
+          function(error) {
+            $scope.errorMessage = error;
+          }
+        );
+    });
   }])
 
   .factory('TranslationService', ['$http', 'API_ENDPOINT', function($http, API_ENDPOINT) {
@@ -72,6 +90,10 @@ angular
             translation: '',
             source: source,
           });
+      },
+       // TODO: allow pagination
+      list: function() {
+        return $http.get(API_ENDPOINT + '/queries');
       }
     }
   }])
@@ -93,7 +115,6 @@ angular
               console.dir(error);
             }
           );
-
       },
       // TODO: add other service methods
     };
