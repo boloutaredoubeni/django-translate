@@ -1,6 +1,5 @@
-{% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>Translator</title>
@@ -8,9 +7,7 @@
 </head>
 <body ng-app="translatorApp">
   <ng-view>Loading ...</ng-view>
-  <script type="text/javascript" src="{% static 'angular/angular.js' %}"></script>
-  <script type="text/javascript" src="{% static 'angular-route/angular-route.js' %}"></script>
-   <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+  {% include "js.html" %}
   {% include "main.html" %}
 </body>
 </html>
