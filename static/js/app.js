@@ -2,7 +2,7 @@
 
 angular
 
-  .module('translatorApp', ['ui.router'])
+  .module('translatorApp', ['ui.router', 'ngMessages'])
 
   .constant('API_ENDPOINT', '/api/v1')
 
@@ -29,24 +29,34 @@ angular
   })
 
   .controller('InputController', ['$scope', 'TranslationService', function($scope, TranslationService) {
+
     $scope.sourceText = '';
     $scope.status = '';
+    $scope.errorMessage = '';
+
     $scope.sendToServer = function() {
       // TODO: make sure its validated
-      $scope.status = 'Submitting';
+      $scope.errorMessage = '';
+      $scope.status = 'Submitting ...';
       TranslationService
         .translate($scope.sourceText)
-        // TODO: complete
         .then(
+          // success
           function(response) {
-            // TODO: update ui
+            if (!response.success) {
+              $scope.errorMessage = response.data.detail;
+              return;
+            }
+            $scope.sourceText = '';
             $scope.status = response;
           },
+          // error
           function(error) {
+            $scope.sourceText = '';
+            $scope.errorMessage = error.data.detail;
             $scope.status = error;
           }
-        );;
-      $scope.status = '';
+        );
     };
   }])
   .controller('ResultsController', ['$scope', function($scope) {

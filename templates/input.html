@@ -1,15 +1,22 @@
  {# input.html #}
   <script id="templates/input.html" type="text/ng-template">
     <h3>Translate Some Text</h3>
-    <form>
+    <form name="translationForm">
       {% csrf_token %}
       <div class="row">
        {# TODO: let text area expand only #}
-        <textarea ng-model="sourceText" class="u-full-width" placeholder="Que voulez-vous traduire?" id="sourceLang"></textarea>
+        <textarea name="submission "ng-model="sourceText" class="u-full-width" placeholder="Que voulez-vous traduire?" id="sourceLang" ng-minlength=10 required></textarea>
+        <span ng-show="errorMessage">{$ errorMessage $}</span>
       </div>
       <div class="row u-pull-right">
-        <button class="button-primary" ng-click="sendToServer()">Submit</button>
+        {# TODO: show in the ui that this is disabled #}
+        <button class="button-primary" ng-click="sendToServer()" ng-disabled="translationForm.$invalid">Submit</button>
+      </div>
+      <div ng-messages="translationForm.submission.$error" ng-show="translationForm.submission.$touched">
+        <div ng-message="required">This cannot be blank</div>
+        <div ng-message="minlength">Query is too short</div>
       </div>
     </form>
     <pre>{$ sourceText $} {$ status | json $}</pre>
+    {# TODO: show translated data, link to #}
   </script>
