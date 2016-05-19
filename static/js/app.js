@@ -1,6 +1,8 @@
+'use strict';
+
 angular
 
-  .module('translatorApp', ['ngRoute'])
+  .module('translatorApp', ['ui.router'])
 
   .constant('API_ENDPOINT', '/api/v1')
 
@@ -8,23 +10,20 @@ angular
     $interpolateProvider.startSymbol('{$');
     $interpolateProvider.endSymbol('$}');
   })
-  .config(function($routeProvider){
+  .config(function($stateProvider, $urlRouterProvider){
 
-    $routeProvider
-      .when('/', {
+    $urlRouterProvider.otherwise('/');
+
+    $stateProvider
+      .state('results', {
+        url: '/translations',
         templateUrl: 'templates/main.html',
         controller: 'MainController',
       })
-      .when('/submit', {
-        templateUrl: 'templates/main.html',
-        controller: 'InputController'
-      })
-      .when('/results', {
+      .state('input', {
+        url: '/',
         templateUrl: 'templates/main.html',
         controller: 'ResultsController'
-      })
-      .otherwise({
-        redirectTo: '/'
       })
 
   })
