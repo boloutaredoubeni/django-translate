@@ -18,19 +18,16 @@ angular
       .state('results', {
         url: '/translations',
         templateUrl: 'templates/main.html',
-        controller: 'MainController',
+        controller: 'ResultsController',
       })
       .state('input', {
         url: '/',
-        templateUrl: 'templates/main.html',
-        controller: 'ResultsController'
+        templateUrl: 'templates/input.html',
+        controller: 'InputController'
       })
 
   })
 
-  .controller('MainController', ['$scope', function($scope) {
-    $scope.message = 'Hello From Main';
-  }])
   .controller('InputController', ['$scope', function($scope) {
     $scope.message = 'Hello From Input';
   }])
