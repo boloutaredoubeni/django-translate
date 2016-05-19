@@ -1,5 +1,21 @@
 {# results.html #}
   <script id="templates/results.html" type="text/ng-template">
     <h3>Translations</h3>
+    <table class="u-full-width">
+      <thead>
+        <tr>
+          <th>Original</th>
+          <th>Language</th>
+          <th>Translations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="query in queries">
+          <td>{$ query.source $}</td>
+          <td>{$ query.lang $}</td>
+          <td>{$ query.translation $}</td>
+        </tr>
+      </tbody>
+    </table>
     <pre>{$ queries | json $}</pre>
   </script>
