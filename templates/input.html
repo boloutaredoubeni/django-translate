@@ -1,11 +1,15 @@
- <!-- input.html -->
+ {# input.html #}
   <script id="templates/input.html" type="text/ng-template">
     <h3>Translate Some Text</h3>
     <form>
+      {% csrf_token %}
       <div class="row">
        {# TODO: let text area expand only #}
-        <textarea class="u-full-width" placeholder="Que voulez-vous traduire?" id="sourceLang"></textarea>
+        <textarea ng-model="sourceText" class="u-full-width" placeholder="Que voulez-vous traduire?" id="sourceLang"></textarea>
       </div>
-      <input type="submit" class="button-primary" value="Submit">
+      <div class="row u-pull-right">
+        <button class="button-primary" ng-click="sendToServer()">Submit</button>
+      </div>
     </form>
+    <pre>{$ sourceText $} {$ status | json $}</pre>
   </script>

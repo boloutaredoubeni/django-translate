@@ -28,8 +28,26 @@ angular
 
   })
 
-  .controller('InputController', ['$scope', function($scope) {
-    $scope.message = 'Hello From Input';
+  .controller('InputController', ['$scope', 'TranslationService', function($scope, TranslationService) {
+    $scope.sourceText = '';
+    $scope.status = '';
+    $scope.sendToServer = function() {
+      // TODO: make sure its validated
+      $scope.status = 'Submitting';
+      TranslationService
+        .translate($scope.sourceText)
+        // TODO: complete
+        .then(
+          function(response) {
+            // TODO: update ui
+            $scope.status = response;
+          },
+          function(error) {
+            $scope.status = error;
+          }
+        );;
+      $scope.status = '';
+    };
   }])
   .controller('ResultsController', ['$scope', function($scope) {
     $scope.message = 'Hello From Results';
@@ -37,22 +55,13 @@ angular
 
   .factory('TranslationService', ['$http', 'API_ENDPOINT', function($http, API_ENDPOINT) {
     return {
-      translate: function(source, id) {
-        $http
+      translate: function(source) {
+        return $http
           .post(API_ENDPOINT + '/queries/', {
-            id: id,
+            lang: '',
+            translation: '',
             source: source,
-          })
-          // TODO: complete
-          .then(
-            function(response) {
-              // TODO: update ui
-              console.dir(response);
-            },
-            function(error) {
-              console.dir(error);
-            }
-          );
+          });
       }
     }
   }])
