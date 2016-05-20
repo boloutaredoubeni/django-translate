@@ -11,11 +11,11 @@
       </thead>
       <tbody>
         <tr ng-repeat="query in queries">
-          <td>{$ query.source $}</td>
-          <td>{$ query.lang $}</td>
-          <td>{$ query.translation $}</td>
+          <td>{% verbatim %}{{ query.source }}{% endverbatim %}</td>
+          <td>{% verbatim %}{{ query.lang }}{% endverbatim %}</td>
+          <td>{% verbatim %}{{ query.translation }}{% endverbatim %}</td>
         </tr>
       </tbody>
     </table>
-    <pre>{$ queries | json $}</pre>
+    <pre>{% verbatim %}{{ queries | json }}{% endverbatim %}</pre>
   </script>

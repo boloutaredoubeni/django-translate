@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^$', views.AngularView.as_view()),
     url(r'^api/v1/', include(router.urls)),
     url(r'^admin/', admin.site.urls),
-    url(r'^api-auth/',
+    url(r'^docs/',
         include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/v1/authorize/', obtain_jwt_token)
 ]

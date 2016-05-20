@@ -5,12 +5,11 @@
       <div class="row">
         <label for="usernameInput" />
         <input class="u-full-width" type="text" placeholder="Username or email" id="username" ng-model="user.name" required/>
-        <span ng-show="error.username">{$ "Invalid Username" $}</span>
       </div>
       <div class="row">
         <label for="password" />
         <input class="u-full-width" type="password" placeholder="Password" ng-model="user.password" id="password" required/>
-        <span ng-show="error.password">{$ "Wrong Password" $}</span>
+        <span ng-show="errorMessage">{% verbatim %}{{ errorMessage }}{% endverbatim %}</span>
       </div>
       <div class="row u-pull-right">
         {# TODO: show in the ui that this is disabled #}
@@ -20,5 +19,5 @@
         <div ng-message="required">Input cannot be blank</div>
       </div>
     </form>
-    <pre>{$ user $}</pre>
+    <pre>{% verbatim %}{{ user | json }}{% endverbatim %}</pre>
   </script>

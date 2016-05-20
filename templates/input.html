@@ -5,7 +5,7 @@
       {% csrf_token %}
       <div class="row">
         <textarea name="submission" ng-model="sourceText" class="u-full-width" placeholder="Que voulez-vous traduire?" id="sourceLang" ng-minlength=10 required></textarea>
-        <span ng-show="errorMessage">{$ errorMessage $}</span>
+        <span ng-show="errorMessage">{% verbatim %}{{ errorMessage }}{% endverbatim %}</span>
       </div>
       <div class="row u-pull-right">
         {# TODO: show in the ui that this is disabled #}
@@ -16,6 +16,6 @@
         <div ng-message="minlength">Query is too short</div>
       </div>
     </form>
-    <pre>{$ sourceText $} {$ status | json $}</pre>
+    <pre>{% verbatim %}{{ sourceText }}{{ status | json }}{% endverbatim %}</pre>
     {# TODO: show translated data, link to #}
   </script>

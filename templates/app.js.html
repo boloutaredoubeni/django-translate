@@ -2,7 +2,7 @@
 <script type="text/javascript">
 'use strict';
 
-// TODO: refactor and dry up
+// TODO: refactor and dry up and move back to a seperate js file
 
 angular
 
@@ -11,10 +11,10 @@ angular
   .constant('API_ENDPOINT', '/api/v1')
   .constant('JWT_TOKEN', 'jW10k3n')
 
-  .config(function($interpolateProvider) {
-    $interpolateProvider.startSymbol('{$');
-    $interpolateProvider.endSymbol('$}');
-  })
+  // .config(function($interpolateProvider) {
+  //   $interpolateProvider.startSymbol('{$');
+  //   $interpolateProvider.endSymbol('$}');
+  // })
   .config(function($stateProvider, $urlRouterProvider){
 
     $urlRouterProvider.otherwise('/');
@@ -45,13 +45,15 @@ angular
 
   .controller('LoginController', ['$scope', 'AuthenticationService', function($scope, AuthenticationService) {
     $scope.user = {};
+    $scope.errorMessage = '';
     $scope.login = function() {
       AuthenticationService
         .login($scope.user.name, $scope.user.password)
         .then(
           function(response) {
+             $scope.errorMessage = '';
              if (response.status !==  200 ) {
-              $scope.errorMessage = response.data.detail;
+              $scope.errorMessage = response.data;
               return;
             }
             if (response.config.url.indexOf('{{ api_url }}') === 0 && response.data.token) {
@@ -60,7 +62,8 @@ angular
              }
           },
           function(error) {
-            console.err(error);
+
+            $scope.errorMessage = error.data;
           }
         );
     };
@@ -144,7 +147,7 @@ angular
     return {
       register: function(user) {
         return $http
-          .post('/authorize/register', {
+          .post(API_ENDPOINT + '/authorize/register', {
             data: {
               username: user.name,
               email: user.email,
@@ -157,7 +160,8 @@ angular
   .factory('TranslationService', ['$http', 'API_ENDPOINT', 'AuthenticationService', function($http, API_ENDPOINT, AuthenticationService) {
     return {
       translate: function(source) {
-        headers = {};
+        // Todo: try if authenticated else redirect
+        var headers = {};
         var token = AuthenticationService.getToken();
         if (token) {
           console.log('Token found');
@@ -181,11 +185,11 @@ angular
       }
     }
   }])
-  .factory('AuthenticationService', ['$http', 'JWT_TOKEN', function($http, JWT_TOKEN) {
+  .factory('AuthenticationService', ['$http', '$window', 'JWT_TOKEN', 'API_ENDPOINT', function($http, $window, JWT_TOKEN, API_ENDPOINT) {
     return {
       login: function(username, password) {
         return $http
-          .post('/authorize/login', {
+          .post(API_ENDPOINT + '/authorize/', {
             username: username,
             password: password,
           });
@@ -205,7 +209,7 @@ angular
            info =  JSON.parse($window.atob(payload64));
         } catch(e) {
           info = e;
-          console.err(e);
+          console.log(e);
         } finally {
           return info;
         }

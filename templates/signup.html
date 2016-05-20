@@ -5,17 +5,17 @@
       <div class="row">
         <label for="usernameInput" />
         <input class="u-full-width" type="text" placeholder="Username" id="username" ng-model="user.name" required/>
-        <span ng-show="error.username">{$ "Invalid Username" $}</span>
+        <span ng-show="error.username">{% verbatim %}{{ "Invalid Username" }}{% endverbatim %}</span>
       </div>
       <div class="row">
         <label for="emailInput" />
         <input class="u-full-width" type="text" placeholder="Email" id="email" ng-model="user.email" required/>
-        <span ng-show="error.email">{$ "Invalid Email" $}</span>
+        <span ng-show="error.email">{% verbatim %}{{ "Invalid Email" }}{% endverbatim %}</span>
       </div>
       <div class="row">
         <label for="password" />
         <input class="u-full-width" type="password" placeholder="Password" ng-model="user.password" id="password" required/>
-        <span ng-show="error.password">{$ "Wrong Password" $}</span>
+        <span ng-show="error.password">{% verbatim %}{{ "Wrong Password" }}{% endverbatim %}</span>
       </div>
       <div class="row u-pull-right">
         {# TODO: show in the ui that this is disabled #}
