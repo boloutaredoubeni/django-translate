@@ -1,0 +1,29 @@
+{# templates/signup.html #}
+  <script type="text/ng-template" id="templates/signup.html">
+    <form name="signupForm">
+      {% csrf_token %}
+      <div class="row">
+        <label for="usernameInput" />
+        <input class="u-full-width" type="text" placeholder="Username" id="username" ng-model="user.name" required/>
+        <span ng-show="error.username">{$ "Invalid Username" $}</span>
+      </div>
+      <div class="row">
+        <label for="emailInput" />
+        <input class="u-full-width" type="text" placeholder="Email" id="email" ng-model="user.email" required/>
+        <span ng-show="error.email">{$ "Invalid Email" $}</span>
+      </div>
+      <div class="row">
+        <label for="password" />
+        <input class="u-full-width" type="password" placeholder="Password" ng-model="user.password" id="password" required/>
+        <span ng-show="error.password">{$ "Wrong Password" $}</span>
+      </div>
+      <div class="row u-pull-right">
+        {# TODO: show in the ui that this is disabled #}
+        <button class="button-primary" ng-click="register()" ng-disabled="signupForm.$invalid">Signup</button>
+      </div>
+      <div ng-messages="signupForm.submission.$error" ng-show="signupForm.submission.$touched">
+        <div ng-message="required">Input cannot be blank</div>
+      </div>
+    </form>
+    <pre>{$ user $}</pre>
+  </script>

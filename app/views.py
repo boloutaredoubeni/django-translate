@@ -4,6 +4,9 @@ from rest_framework.response import Response
 from app.permissions import IsOwnerOrReadOnly
 from app.serializers import QuerySerializer
 from django.views.generic.base import TemplateView
+from django.conf import settings
+
+from urllib.parse import urljoin
 
 
 class QueryViewSet(viewsets.ModelViewSet):
@@ -40,3 +43,11 @@ class QueryViewSet(viewsets.ModelViewSet):
 
 class AngularView(TemplateView):
     template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AngularView, self).get_context_data(**kwargs)
+        api_version = "api/v{}/".format(settings.API_VERSION)
+        api_url = urljoin('http://' + settings.IP_ADDR + ':8000', api_version)
+        context['api_url'] = api_url
+        return context
+        

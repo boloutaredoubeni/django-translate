@@ -140,9 +140,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    # '/var/www/static/',
-]
+GOOGLE_TRANSLATE_KEY = os.environ.get('GOOGLE_TRANSLATE_KEY')
 
-GOOGLE_TRANSLATE_KEY = 'AIzaSyCBzeubceaQKRs5df05bXi0nkRqlwvKlts'
+IP_ADDR = os.environ.get('IP_ADDR', '127.0.0.1')
+
+API_VERSION = 1 

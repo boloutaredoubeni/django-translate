@@ -1,6 +1,5 @@
 {# js.html #}
-{% load staticfiles %}
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-messages.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.0/angular-ui-router.min.js"></script>
-  <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+  {% include "app.js.html" %}

@@ -14,7 +14,7 @@
       </div>
       <div class="row u-pull-right">
         {# TODO: show in the ui that this is disabled #}
-        <button class="button-primary" ng-click="login()" ng-disabled="loginForm.$invalid">Submit</button>
+        <button class="button-primary" ng-click="login()" ng-disabled="loginForm.$invalid">Login</button>
       </div>
       <div ng-messages="loginForm.submission.$error" ng-show="loginForm.submission.$touched">
         <div ng-message="required">Input cannot be blank</div>
