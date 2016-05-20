@@ -9,7 +9,7 @@ from .services import translate
 # Create your models here.
 class Query(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     source = models.TextField()
     lang = models.CharField(max_length=4)
     translation = models.TextField()

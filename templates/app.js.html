@@ -11,10 +11,6 @@ angular
   .constant('API_ENDPOINT', '/api/v1')
   .constant('JWT_TOKEN', 'jW10k3n')
 
-  // .config(function($interpolateProvider) {
-  //   $interpolateProvider.startSymbol('{$');
-  //   $interpolateProvider.endSymbol('$}');
-  // })
   .config(function($stateProvider, $urlRouterProvider){
 
     $urlRouterProvider.otherwise('/');
@@ -165,7 +161,7 @@ angular
         var token = AuthenticationService.getToken();
         if (token) {
           console.log('Token found');
-          headers.Authorization = 'Bearer ' + token;
+          headers.Authorization = $http.defaults.headers.common['Authorization'] + 'Token ' + token;
         }
         
         return $http
@@ -229,5 +225,8 @@ angular
         return false;
       }
     };
-  }]);
+  }])
+  
+  // TODO: Check credentials
+  .run(function() {});
 </script>
