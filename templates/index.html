@@ -1,3 +1,4 @@
+{# templates/login.html #}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +10,11 @@
   <div class="container" ui-view>Loading ...</div>
   <a ui-sref="input">Input</a>
   <a ui-sref="results">Results</a>
+  <a ui-sref="login">Login</a>
   <a href="/api/v1/">Api Doc</a>
   {% include "js.html" %}
   {% include "results.html" %}
   {% include "input.html" %}
+  {% include "login.html" %}
 </body>
 </html>

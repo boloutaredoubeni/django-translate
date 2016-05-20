@@ -4,8 +4,7 @@
     <form name="translationForm">
       {% csrf_token %}
       <div class="row">
-       {# TODO: let text area expand only #}
-        <textarea name="submission "ng-model="sourceText" class="u-full-width" placeholder="Que voulez-vous traduire?" id="sourceLang" ng-minlength=10 required></textarea>
+        <textarea name="submission" ng-model="sourceText" class="u-full-width" placeholder="Que voulez-vous traduire?" id="sourceLang" ng-minlength=10 required></textarea>
         <span ng-show="errorMessage">{$ errorMessage $}</span>
       </div>
       <div class="row u-pull-right">

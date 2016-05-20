@@ -25,9 +25,26 @@ angular
         templateUrl: 'templates/input.html',
         controller: 'InputController'
       })
+      // FIXME: if the user is logged in don't navigate to this state
+      .state('login', {
+        url: '/login',
+        templateUrl: 'templates/login.html',
+        controller: 'LoginController'
+      })
 
   })
 
+  .controller('LoginController', ['$scope', 'AuthenticationService', function($scope, AuthenticationService) {
+    $scope.user = {};
+    $scope.login = function() {
+      AuthenticationService
+        .login($scope.user.name, $scope.user.password)
+        .then(
+          function(response) {},
+          function(error) {}
+        );
+    };
+  }])
   .controller('InputController', ['$scope', 'TranslationService', function($scope, TranslationService) {
 
     $scope.sourceText = '';
@@ -67,7 +84,6 @@ angular
         .list()
         .then(
           function(response) {
-            console.dir(response);
             if (response.status !==  200 ) {
               $scope.errorMessage = response.data.detail;
               return;
@@ -79,6 +95,10 @@ angular
           }
         );
     });
+  }])
+
+  .service('UserService', ['$http', function($http) {
+
   }])
 
   .factory('TranslationService', ['$http', 'API_ENDPOINT', function($http, API_ENDPOINT) {
@@ -97,25 +117,26 @@ angular
       }
     }
   }])
-
-  .factory('AuthenticationService', ['$http', 'API_ENDPOINT', function($http, API_ENDPOINT) {
+  .factory('AuthenticationService', ['$http', function($http) {
     return {
       login: function(username, password) {
-        $http
-          .post(API_ENDPOINT + '/authenticate', {
+        return $http
+          .post('/authorize/login', {
             username: username,
             password: password,
-          })
-          // TODO: complete
-          .then(
-            function(response) {
-              console.dir(response);
-            },
-            function(error) {
-              console.dir(error);
-            }
-          );
+          });
       },
-      // TODO: add other service methods
+      register: function(username, password) {
+        return $http
+          .post('/authorize/register', {
+            username: username,
+            password: password,
+          });
+      },
+      logout: function(username, password) {
+        return $http
+          .post('authorize/logout', {
+          });
+      }
     };
   }]);
