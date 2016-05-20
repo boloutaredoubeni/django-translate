@@ -10,6 +10,7 @@ from .services import translate
 class Query(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    creator = models.ForeignKey('auth.User', related_name='queries')
     source = models.TextField()
     lang = models.CharField(max_length=4)
     translation = models.TextField()

@@ -3,11 +3,13 @@
 'use strict';
 
 // TODO: refactor and dry up and move back to a seperate js file
+// FIXME: use $resource instead of $http for REST calls
+/* https://docs.angularjs.org/api/ngResource/service/$resource */
 
 angular
 
-  .module('translatorApp', ['ui.router', 'ngMessages'])
-  
+  .module('translatorApp', ['ui.router', 'ngMessages', 'ngResource'])
+
   .constant('API_ENDPOINT', '/api/v1')
   .constant('JWT_TOKEN', 'jW10k3n')
 
@@ -163,10 +165,10 @@ angular
           console.log('Token found');
           headers.Authorization = $http.defaults.headers.common['Authorization'] + 'Token ' + token;
         }
-        
+
         return $http
         // todo: authenticate via interceptr request
-          .post(API_ENDPOINT + '/queries/', { 
+          .post(API_ENDPOINT + '/queries/', {
             headers: headers,
             data: {
               lang: '',
@@ -198,7 +200,7 @@ angular
         var header = parts[0];
         var payload = parts[1];
         var signature = parts[2];
-        
+
         var payload64 = payload.replace('-', '+').replace('_', '/');
         var info = {};
         try {
@@ -220,13 +222,13 @@ angular
         var token = self.getToken();
         if (token) {
           var params = self.decode(token);
-          return Math.round(new Date().getTime() / 1000) <= params.exp; 
+          return Math.round(new Date().getTime() / 1000) <= params.exp;
         }
         return false;
       }
     };
   }])
-  
+
   // TODO: Check credentials
   .run(function() {});
 </script>

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'app',
     'django_extensions',
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -144,4 +145,4 @@ GOOGLE_TRANSLATE_KEY = os.environ.get('GOOGLE_TRANSLATE_KEY')
 
 IP_ADDR = os.environ.get('IP_ADDR', '127.0.0.1')
 
-API_VERSION = 1 
+API_VERSION = 1

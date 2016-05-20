@@ -1,12 +1,17 @@
+from django.contrib.auth.models import User
 from app.models import Query
 from rest_framework import permissions, viewsets, status
 from rest_framework.response import Response
 from app.permissions import IsOwnerOrReadOnly
-from app.serializers import QuerySerializer
+from app.serializers import QuerySerializer, UserSerializer
 from django.views.generic.base import TemplateView
 from django.conf import settings
-
 from urllib.parse import urljoin
+
+
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 class QueryViewSet(viewsets.ModelViewSet):
@@ -50,4 +55,4 @@ class AngularView(TemplateView):
         api_url = urljoin('http://' + settings.IP_ADDR + ':8000', api_version)
         context['api_url'] = api_url
         return context
-        
+
