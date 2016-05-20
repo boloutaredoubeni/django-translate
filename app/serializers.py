@@ -10,13 +10,12 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ('username',
-                  'first_name',
-                  'last_name',
                   'email',
                   'queries',)
 
 
 class QuerySerializer(serializers.HyperlinkedModelSerializer):
+    creator = serializers.ReadOnlyField(source='creator.username')
 
     class Meta:
         model = Query
@@ -25,4 +24,5 @@ class QuerySerializer(serializers.HyperlinkedModelSerializer):
                   'creator',
                   'source',
                   'lang',
+                  'creator',
                   'translation',)

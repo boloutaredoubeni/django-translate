@@ -9,3 +9,8 @@ factory_boy
 google-api-python-client
 python-dotenv
 pyyaml
+ipython
+ipython[kernel]
+ipdb
+Werkzeug
+requests

@@ -7,6 +7,7 @@ from .views import QueryViewSet
 import factory
 from factory import fuzzy
 import random
+import string
 
 
 class QueryFactory(factory.DjangoModelFactory):
@@ -29,6 +30,8 @@ class UserFactory(factory.DjangoModelFactory):
     email = factory.LazyAttribute(
         lambda a: '{0}.{1}@example.com'
         .format(a.first_name, a.last_name).lower())
+    # fixme: hash this
+    password = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits ) for _ in range(random.randint(6, 16)))
 
     class Meta:
         model = User

@@ -8,11 +8,15 @@
 
 angular
 
-  .module('translatorApp', ['ui.router', 'ngMessages', 'ngResource'])
+  .module('translatorApp', ['ui.router', 'ngMessages', 'ngResource', 'ngCookies'])
 
   .constant('API_ENDPOINT', '/api/v1')
   .constant('JWT_TOKEN', 'jW10k3n')
 
+  .config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+  }])
   .config(function($stateProvider, $urlRouterProvider){
 
     $urlRouterProvider.otherwise('/');
@@ -141,14 +145,14 @@ angular
     }
   }])
 
-  .factory('UserService', ['$http', function($http) {
+  .factory('UserService', ['$http', 'API_ENDPOINT', function($http, API_ENDPOINT) {
     return {
       register: function(user) {
         return $http
-          .post(API_ENDPOINT + '/authorize/register', {
+          .post(API_ENDPOINT + '/users/', {
             data: {
               username: user.name,
-              email: user.email,
+              // email: user.email,
               password: user.password,
             }
           });
@@ -183,7 +187,7 @@ angular
       }
     }
   }])
-  .factory('AuthenticationService', ['$http', '$window', 'JWT_TOKEN', 'API_ENDPOINT', function($http, $window, JWT_TOKEN, API_ENDPOINT) {
+  .factory('AuthenticationService', ['$http', '$window', '$cookies', 'JWT_TOKEN', 'API_ENDPOINT', function($http, $window, $cookies, JWT_TOKEN, API_ENDPOINT) {
     return {
       login: function(username, password) {
         return $http
@@ -230,5 +234,7 @@ angular
   }])
 
   // TODO: Check credentials
-  .run(function() {});
+  // .run(function($http) {
+
+  // });
 </script>
