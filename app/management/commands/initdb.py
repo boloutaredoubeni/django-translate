@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
-from app.tests import QueryFactory
-from app.models import Query
+from app.tests import UserFactory
+from django.contrib.auth.models import User
 
 
 class Command(BaseCommand):
@@ -9,7 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for i in range(10):
-            query = QueryFactory.build()
-            query_fields = query._meta.get_fields()
-            query_obj = {field.name: getattr(query, field.name) for field in query_fields if hasattr(query, field.name)}
-            Query.objects.get_or_create(**query_obj)
+            user = UserFactory.create()
+            # user_fields = user._meta.get_fields()
+            # user_obj = {field.name: getattr(user, field.name) for field in user_fields if hasattr(user, field.name)}
+            # User.objects.get_or_create(**user_obj)
