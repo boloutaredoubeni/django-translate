@@ -4,14 +4,19 @@ from app.models import Query
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    queries = serializers.PrimaryKeyRelatedField(many=True,
+    email = serializers.EmailField()
+    queries = serializers.PrimaryKeyRelatedField(required=False, many=True,
                                                  queryset=Query.objects.all())
+    password = serializers.CharField(write_only=True, required=True)
 
+    # fixme: encrypt password and make sure it is stored correctly
     class Meta:
         model = User
         fields = ('username',
                   'email',
-                  'queries',)
+                  'queries',
+                  'password',)
+
 
 
 class QuerySerializer(serializers.HyperlinkedModelSerializer):

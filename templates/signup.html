@@ -4,18 +4,23 @@
       {% csrf_token %}
       <div class="row">
         <label for="usernameInput" />
-        <input class="u-full-width" type="text" placeholder="Username" id="username" ng-model="user.name" required/>
+        <input class="u-full-width" type="text" placeholder="Username" id="username" ng-model="user.username" required/>
         <span ng-show="error.username">{% verbatim %}{{ "Invalid Username" }}{% endverbatim %}</span>
       </div>
-      <!-- <div class="row">
+      <div class="row">
         <label for="emailInput" />
         <input class="u-full-width" type="text" placeholder="Email" id="email" ng-model="user.email" required/>
         <span ng-show="errorMessage.email">{% verbatim %}{{ "Invalid Email" }}{% endverbatim %}</span>
-      </div> -->
+      </div>
       <div class="row">
         <label for="password" />
         <input class="u-full-width" type="password" placeholder="Password" ng-model="user.password" id="password" required/>
         <span ng-show="errorMessage.password">{% verbatim %}{{ "Wrong Password" }}{% endverbatim %}</span>
+      </div>
+      <div class="row">
+        <label for="confirmPassword" />
+        <input class="u-full-width" type="password" placeholder="Confirm Password" id="password" required/>
+        <span ng-show="errorMessage.password">{% verbatim %}{{ "Password Does not match" }}{% endverbatim %}</span>
       </div>
       <div class="row u-pull-right">
         {# TODO: show in the ui that this is disabled #}

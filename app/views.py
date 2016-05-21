@@ -15,11 +15,11 @@ class UserViewSet(viewsets.ModelViewSet):
 
     #fixme or override self.list()
     def get_queryset(self):
-        import ipdb; ipdb.set_trace()
         if self.request.user.is_superuser:
-            return self.queryset
-        else:
-            return User.objects.filter(id=self.request.user.id)
+            return User.objects.all()
+        elif self.request.user is None:
+            return User.objects.none()
+        return User.objects.filter(id=self.request.user.id)
 
     # def create(self, request):
     #     serializer = self.serializer_class(data=request.data)
