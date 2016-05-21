@@ -14,3 +14,4 @@ ipython[kernel]
 ipdb
 Werkzeug
 requests
+django[bcrypt]

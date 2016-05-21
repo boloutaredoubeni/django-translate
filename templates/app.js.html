@@ -2,9 +2,8 @@
 <script type="text/javascript">
 'use strict';
 
-// TODO: refactor and dry up and move back to a seperate js file
-// FIXME: use $resource instead of $http for REST calls
-/* https://docs.angularjs.org/api/ngResource/service/$resource */
+// TODO: refactor and dry up and move back to a seperate js files
+
 
 angular
 
@@ -187,7 +186,7 @@ angular
     return {
       login: function(username, password) {
         return $http
-          .post(API_ENDPOINT + '/authorize/', {
+          .post(API_ENDPOINT + '/login', {
             username: username,
             password: password,
           });

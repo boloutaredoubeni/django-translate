@@ -1,0 +1,23 @@
+{# templates/js.html #}
+{% load staticfiles %}
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/{{ ng_version }}/angular.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/{{ ng_version }}/angular-messages.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/{{ ng_version }}/angular-resource.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/{{ ui_router_version }}/angular-ui-router.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/{{ ng_version }}/angular-cookies.js"></script>
+
+  <script src="{% static 'js/translation/translation.module.js' %}"></script>
+  <script src="{% static 'js/translation/services/translation.service.js' %}"></script>
+  <script src="{% static 'js/translation/controllers/input.controller.js' %}"></script>
+  <script src="{% static 'js/translation/controllers/results.controller.js' %}"></script>
+  <script src="{% static 'js/authentication/authentication.module.js' %}"></script>
+  <script src="{% static 'js/authentication/controllers/login.controller.js' %}"></script>
+  <script src="{% static 'js/authentication/controllers/signup.controller.js' %}"></script>
+  <script src="{% static 'js/authentication/services/user.service.js' %}"></script>
+  <script src="{% static 'js/authentication/services/authentication.service.js' %}"></script>
+  <script src="{% static 'js/translator.module.js' %}"></script>
+
+
+
+
+

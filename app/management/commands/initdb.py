@@ -1,6 +1,8 @@
 from django.core.management.base import BaseCommand
 from app.tests import UserFactory
-from django.contrib.auth.models import User
+
+import random
+import string
 
 
 class Command(BaseCommand):
@@ -9,7 +11,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for i in range(10):
-            user = UserFactory.create()
-            # user_fields = user._meta.get_fields()
-            # user_obj = {field.name: getattr(user, field.name) for field in user_fields if hasattr(user, field.name)}
-            # User.objects.get_or_create(**user_obj)
+            password = ''.join(
+                random.SystemRandom()
+                      .choice(string.ascii_letters + string.digits)
+                       for _ in range(random.randint(6, 16)))
+            UserFactory.create(password=password)

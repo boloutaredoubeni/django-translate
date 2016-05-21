@@ -28,8 +28,5 @@ urlpatterns = [
     url(r'^api/v1/', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^docs/', include('rest_framework_swagger.urls')),
-    url(r'^api/v1/authorize/login', obtain_jwt_token)
-    # url(r'^api/v1/authorize/register', CreateView.as_view(
-    #     form_class=UserCreationForm,
-    #     success_url='/')),
+    url(r'^api/v1/login', obtain_jwt_token)
 ]

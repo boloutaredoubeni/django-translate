@@ -75,4 +75,6 @@ class AngularView(TemplateView):
         api_version = "api/v{}/".format(settings.API_VERSION)
         api_url = urljoin('http://' + settings.IP_ADDR + ':8000', api_version)
         context['api_url'] = api_url
+        context['ng_version'] = '1.5.5'
+        context['ui_router_version'] = '0.3.0'
         return context

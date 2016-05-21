@@ -1,13 +1,10 @@
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse, resolve
 from rest_framework import status
-from rest_framework.test import APITestCase, APIRequestFactory
+from rest_framework.test import APITestCase
 from .models import Query
-from .views import QueryViewSet
 import factory
 from factory import fuzzy
 import random
-import string
 
 
 class QueryFactory(factory.DjangoModelFactory):
@@ -27,11 +24,9 @@ class UserFactory(factory.DjangoModelFactory):
     username = fuzzy.FuzzyText()
     first_name = factory.Faker('first_name')
     last_name = factory.Faker('last_name')
-    email = factory.LazyAttribute(
-        lambda a: '{0}.{1}@example.com'
-        .format(a.first_name, a.last_name).lower())
-    # fixme: hash this
-    password = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits ) for _ in range(random.randint(6, 16)))
+    email = factory.fuzzy.FuzzyText(chars='abcdefghijklmnopqrstuvwxyz',
+                                    length=12,
+                                    suffix='@example.com')
 
     class Meta:
         model = User
