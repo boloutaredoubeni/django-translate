@@ -77,4 +77,5 @@ class AngularView(TemplateView):
         context['api_url'] = api_url
         context['ng_version'] = '1.5.5'
         context['ui_router_version'] = '0.3.0'
+        context['ng_material_version'] = '1.0.7'
         return context

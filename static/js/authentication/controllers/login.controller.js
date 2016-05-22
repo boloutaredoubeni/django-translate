@@ -16,6 +16,7 @@
         .login(vm.user)
         .then(
           function(response) {
+            console.dir(response);
              vm.errorMessage = '';
              if (response.status !==  200 ) {
               vm.errorMessage = response.data;
@@ -27,7 +28,7 @@
              }
           },
           function(error) {
-
+            console.dir(error);
             vm.errorMessage = error.data;
           }
         );

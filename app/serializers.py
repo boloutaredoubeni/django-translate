@@ -9,7 +9,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
                                                  queryset=Query.objects.all())
     password = serializers.CharField(write_only=True, required=True)
 
-    # fixme: encrypt password and make sure it is stored correctly
     class Meta:
         model = User
         fields = ('username',

@@ -4,12 +4,12 @@
     <form name="translationForm">
       {% csrf_token %}
       <div class="row">
-        <textarea name="submission" ng-model="sourceText" class="u-full-width" placeholder="Que voulez-vous traduire?" id="sourceLang" ng-minlength=10 required></textarea>
-        <span ng-show="errorMessage">{% verbatim %}{{ errorMessage }}{% endverbatim %}</span>
+        <textarea name="submission" ng-model="vm.sourceText" class="u-full-width" placeholder="Que voulez-vous traduire?" id="sourceLang" ng-minlength=10 required></textarea>
+        <span ng-show="vm.errorMessage">{% verbatim %}{{ errorMessage }}{% endverbatim %}</span>
       </div>
       <div class="row u-pull-right">
         {# TODO: show in the ui that this is disabled #}
-        <button class="button-primary" ng-click="sendToServer()" ng-disabled="translationForm.$invalid">Submit</button>
+        <button class="button-primary" ng-click="vm.sendToServer()" ng-disabled="translationForm.$invalid">Submit</button>
       </div>
       <div ng-messages="translationForm.submission.$error" ng-show="translationForm.submission.$touched">
         <div ng-message="required">This cannot be blank</div>

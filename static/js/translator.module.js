@@ -8,6 +8,7 @@
 
   angular
     .module('translator', ['ui.router',
+                           'ngMaterial',
                            'translator.authentication',
                            'translator.translation',
                            'ngCookies']);
@@ -30,23 +31,23 @@
        .state('results', {
          url: '/translations',
          templateUrl: 'templates/results.html',
-         controller: 'ResultsController',
+         controller: 'ResultsController as vm',
        })
        .state('input', {
          url: '/',
          templateUrl: 'templates/input.html',
-         controller: 'InputController',
+         controller: 'InputController as vm',
        })
        // FIXME: if the user is logged in don't navigate to this state
        .state('login', {
          url: '/login',
          templateUrl: 'templates/login.html',
-         controller: 'LoginController',
+         controller: 'LoginController as vm',
        })
        .state('signup', {
          url: '/signup',
          templateUrl: 'templates/signup.html',
-         controller: 'SignupController',
+         controller: 'SignupController as vm',
        })
    }
 })();

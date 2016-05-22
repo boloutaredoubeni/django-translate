@@ -11,7 +11,7 @@
     var vm = this;
     vm.queries = [];
     vm.errorMessage = '';
-    vm.$on('$stateChangeSuccess', function() {
+    $scope.$on('$stateChangeSuccess', function() {
       translation
         .list()
         .then(
