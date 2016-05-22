@@ -5,33 +5,33 @@
     .module('translator.authentication.controllers')
     .controller('LoginController', LoginController);
 
-  LoginController.$inject = ['$scope', 'authentication'];
+  LoginController.$inject = ['$scope', '$location', 'authentication'];
 
-  function LoginController($scope, authentication) {
-    var vm = this;
-    vm.user = {};
-    vm.errorMessage = '';
-    vm.login = function() {
+  function LoginController($scope, $location, authentication) {
+    $scope.user = {};
+    $scope.login = function() {
       authentication
-        .login(vm.user)
+        .login($scope.user)
         .then(
           function(response) {
             console.dir(response);
-             vm.errorMessage = '';
+             $scope.errorMessage = '';
              if (response.status !==  200 ) {
-              vm.errorMessage = response.data;
+              $scope.errorMessage = response.data;
               return;
             }
-            if (response.config.url.indexOf('{{ api_url }}') === 0 && response.data.token) {
+            if (response.config.url.indexOf('/api/v1/login') === 0 && response.data.token) {
               console.log('Token found');
               authentication.storeToken(response.data.token);
              }
           },
           function(error) {
             console.dir(error);
-            vm.errorMessage = error.data;
+            $scope.errorMessage = error.data;
           }
         );
     };
+    $scope.errorMessage = '';
+
   }
 })();

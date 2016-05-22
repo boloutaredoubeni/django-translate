@@ -8,33 +8,31 @@
   InputController.$inject = ['$scope', 'translation'];
 
   function InputController($scope, translation) {
-    var vm = this;
+    $scope.sourceText = '';
+    $scope.status = '';
+    $scope.errorMessage = '';
 
-    vm.sourceText = '';
-    vm.status = '';
-    vm.errorMessage = '';
-
-    vm.sendToServer = function() {
+    $scope.sendToServer = function() {
       // TODO: make sure its validated
-      vm.errorMessage = '';
-      vm.status = 'Submitting ...';
+      $scope.errorMessage = '';
+      $scope.status = 'Submitting ...';
       translation
-        .translate(vm.sourceText)
+        .translate($scope.sourceText)
         .then(
           // success
           function(response) {
             if (!response.success) {
-              vm.errorMessage = response.data.detail;
+              $scope.errorMessage = response.data.detail;
               return;
             }
-            vm.sourceText = '';
-            vm.status = response;
+            $scope.sourceText = '';
+            $scope.status = response;
           },
           // error
           function(error) {
-            vm.sourceText = '';
-            vm.errorMessage = error.data.detail;
-            vm.status = error;
+            $scope.sourceText = '';
+            $scope.errorMessage = error.data.detail;
+            $scope.status = error;
           }
         );
     };

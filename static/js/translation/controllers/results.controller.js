@@ -8,22 +8,21 @@
   ResultsController.$inject = ['$scope', 'translation'];
 
   function ResultsController($scope, translation) {
-    var vm = this;
-    vm.queries = [];
-    vm.errorMessage = '';
+    $scope.queries = [];
+    $scope.errorMessage = '';
     $scope.$on('$stateChangeSuccess', function() {
       translation
         .list()
         .then(
           function(response) {
             if (response.status !==  200 ) {
-              vm.errorMessage = response.data.detail;
+              $scope.errorMessage = response.data.detail;
               return;
             }
-            vm.queries = response.data;
+            $scope.queries = response.data;
           },
           function(error) {
-            vm.errorMessage = error;
+            $scope.errorMessage = error;
           }
         );
     });
