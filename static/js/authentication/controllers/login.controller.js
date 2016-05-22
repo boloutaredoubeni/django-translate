@@ -21,12 +21,10 @@
               return;
             }
             if (response.config.url.indexOf('/api/v1/login') === 0 && response.data.token) {
-              console.log('Token found');
               authentication.storeToken(response.data.token);
              }
           },
           function(error) {
-            console.dir(error);
             $scope.errorMessage = error.data;
           }
         );

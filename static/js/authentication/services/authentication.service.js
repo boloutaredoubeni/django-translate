@@ -19,12 +19,10 @@
       decode: decode,
       storeToken: storeToken,
       getToken: getToken,
-      authenticated: authenticated,
     };
 
     function login(user) {
-      return $http
-        .post(API_ENDPOINT + '/login/', user);
+      return $http.post(API_ENDPOINT + '/login/', user);
     }
 
     function logout(username, password) {
@@ -55,15 +53,6 @@
 
     function getToken() {
       return $window.localStorage[JWT_TOKEN];
-    }
-
-    function authenticated() {
-      var token = self.getToken();
-      if (token) {
-        var params = self.decode(token);
-        return Math.round(new Date().getTime() / 1000) <= params.exp;
-      }
-      return false;
     }
 
     return service;

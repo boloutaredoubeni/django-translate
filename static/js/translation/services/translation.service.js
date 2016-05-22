@@ -23,8 +23,6 @@
           .post(API_ENDPOINT + '/queries/', {
             headers: headers,
             data: {
-              lang: '',
-              translation: '',
               source: source,
             }
           });

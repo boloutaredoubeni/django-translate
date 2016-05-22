@@ -26,6 +26,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 class QuerySerializer(serializers.HyperlinkedModelSerializer):
     creator = serializers.ReadOnlyField(source='creator.username')
+    lang = serializers.CharField(required=False)
+    translation = serializers.CharField(read_only=True)
 
     class Meta:
         model = Query

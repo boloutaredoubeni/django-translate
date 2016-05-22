@@ -12,7 +12,7 @@ class Query(models.Model):
     updated = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey('auth.User', related_name='queries')
     source = models.TextField()
-    lang = models.CharField(max_length=4)
+    lang = models.TextField(max_length=4)
     translation = models.TextField()
 
     class Meta:

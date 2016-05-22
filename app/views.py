@@ -13,27 +13,12 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = (permissions.AllowAny, AppUserPermission)
 
-    #fixme or override self.list()
     def get_queryset(self):
         if self.request.user.is_superuser:
             return User.objects.all()
         elif self.request.user is None:
             return User.objects.none()
         return User.objects.filter(id=self.request.user.id)
-
-    # def create(self, request):
-    #     serializer = self.serializer_class(data=request.data)
-    #     import ipdb; ipdb.set_trace()
-    #     if serializer.is_valid():
-    #         try:
-    #             User.objects.create_user(**serializer.validated_data)
-    #             # todo: send token?
-    #         except Exception:
-    #             return Response(serializer.errors,
-    #                             status=status.HTTP_400_BAD_REQUEST)
-
-    #     return Response(serializer.errors,
-    #                     status=status.HTTP_400_BAD_REQUEST)
 
 
 class QueryViewSet(viewsets.ModelViewSet):
@@ -43,12 +28,7 @@ class QueryViewSet(viewsets.ModelViewSet):
 
     def create(self, request):
         if request.method == 'POST':
-            data = {
-                'source': request.data['source'],
-                'lang': 'en',
-                'translation': 'none',
-            }
-            serializer = self.serializer_class(data=data)
+            serializer = self.serializer_class(data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data,
