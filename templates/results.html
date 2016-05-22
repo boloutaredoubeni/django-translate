@@ -4,6 +4,7 @@
     <table class="u-full-width">
       <thead>
         <tr>
+          <th>Creator</th>
           <th>Original</th>
           <th>Language</th>
           <th>Translations</th>
@@ -11,9 +12,10 @@
       </thead>
       <tbody>
         <tr ng-repeat="query in queries">
+          <td>{% verbatim %}{{ query.creator }}{% endverbatim %}</td>
           <td>{% verbatim %}{{ query.source }}{% endverbatim %}</td>
           <td>{% verbatim %}{{ query.lang }}{% endverbatim %}</td>
-          <td>{% verbatim %}{{ query.translation }}{% endverbatim %}</td>
+        <td>{% verbatim %}{{ query.translation }}{% endverbatim %}</td>
         </tr>
       </tbody>
     </table>

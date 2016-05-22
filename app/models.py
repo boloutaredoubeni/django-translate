@@ -2,10 +2,6 @@ from django.db import models
 from .services import translate
 
 
-# class User(auth_user):
-#     pass
-
-
 # Create your models here.
 class Query(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -19,5 +15,6 @@ class Query(models.Model):
         ordering = ('created',)
 
     def save(self, *args, **kwargs):
+        # FIXME: do this some where else
         self.lang, self.translation = translate(self.source)
         super(Query, self).save(*args, **kwargs)

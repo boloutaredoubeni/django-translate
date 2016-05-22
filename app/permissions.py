@@ -25,7 +25,7 @@ class AppUserPermission(permissions.BasePermission):
         elif view.action == 'create':
             # todo: prevent auth users from creating new ones
             # return request.user is not None
-            # NOTE: create requires a Post request
+            # NOTE: create already requires a POST request
             return request.method == 'POST'
 
         return request.user is not None

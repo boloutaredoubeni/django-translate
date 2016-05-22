@@ -4,42 +4,52 @@ from rest_framework.test import APITestCase
 from .models import Query
 import factory
 from factory import fuzzy
-import random
-
-
-class QueryFactory(factory.DjangoModelFactory):
-    source = random.choice([
-        'Bonjour, ca va?',
-        'Hola, como estas?',
-        "Hallo, wie geht's dir",
-        'Parlez-vous francais?'
-        'Tu habla espangol?',
-        'Sprechen sie  deutsch'])
-
-    class Meta:
-        model = Query
 
 
 class UserFactory(factory.DjangoModelFactory):
-    username = fuzzy.FuzzyText()
+    username = factory.fuzzy.FuzzyText()
     first_name = factory.Faker('first_name')
     last_name = factory.Faker('last_name')
-    email = factory.fuzzy.FuzzyText(chars='abcdefghijklmnopqrstuvwxyz',
+    email = fuzzy.FuzzyText(chars='abcdefghijklmnopqrstuvwxyz',
                                     length=12,
                                     suffix='@example.com')
 
     class Meta:
         model = User
 
-    @factory.post_generation
-    def add_queries(self, create, extracted, **kwargs):
-        if not create:
-            return
-        n = kwargs['queries'] if 'queries' in kwargs else 2
-        # TODO add queries
-        if extracted:
-            for q in range(n):
-                self.queries.add(QueryFactory())
+    # @factory.post_generation
+    # def add_queries(self, create, extracted, **kwargs):
+    #     if not create:
+    #         return
+    #     n = kwargs['queries'] if 'queries' in kwargs else 2
+    #     # TODO add queries
+    #     for q in range(n):
+    #         self.queries.add(QueryFactory(user=self))
+
+
+class QueryFactory(factory.DjangoModelFactory):
+    source = fuzzy.FuzzyChoice([
+        'Bonjour, ca va?',
+        'Hola, como estas?',
+        "Hallo, wie geht's dir",
+        "Comment tu t'appelles ?",
+        '我不明白',
+        '這個多少錢?',
+        '你係邊國人呀',
+        '英語はできますか',
+        '日本語を話しますか',
+        'Voudriez-vous danser avec moi?',
+        'Parlez-vous français?',
+        '¡Tanto tiempo sin verte!',
+        'Puede hablar español conmigo',
+        'Es freut mich, dich kennen zu lernen',
+        'Parlez-vous francais?',
+        'Tu habla espangol?',
+        'Sprechen sie  deutsch'])
+    creator = factory.SubFactory(UserFactory)
+
+    class Meta:
+        model = Query
 
 
 class RootAPITest(APITestCase):

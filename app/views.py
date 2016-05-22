@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from app.models import Query
-from rest_framework import permissions, viewsets, status
+from rest_framework import permissions, viewsets, status, renderers
 from rest_framework.response import Response
 from app.permissions import IsOwnerOrReadOnly, AppUserPermission
 from app.serializers import QuerySerializer, UserSerializer
@@ -12,6 +12,7 @@ from urllib.parse import urljoin
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = (permissions.AllowAny, AppUserPermission)
+    renderer_classes = (renderers.JSONRenderer,)
 
     def get_queryset(self):
         if self.request.user.is_superuser:
@@ -20,11 +21,16 @@ class UserViewSet(viewsets.ModelViewSet):
             return User.objects.none()
         return User.objects.filter(id=self.request.user.id)
 
+    # todo: return a token at login
+
 
 class QueryViewSet(viewsets.ModelViewSet):
     queryset = Query.objects.all()
     serializer_class = QuerySerializer
     permission_classes = (IsOwnerOrReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
 
     def create(self, request):
         if request.method == 'POST':
@@ -38,9 +44,11 @@ class QueryViewSet(viewsets.ModelViewSet):
                             status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, pk=None):
+        # Todo: prevent this
         pass
 
     def destroy(self, request, pk=None):
+        # todo: enable this
         pass
 
 # class UserViewSet(viewsets.ReadOnlyModelViewSet):

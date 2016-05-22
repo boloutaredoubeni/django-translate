@@ -15,7 +15,7 @@
         var token = authentication.getToken();
         if (token) {
           console.log('Token found');
-          headers.Authorization = $http.defaults.headers.common['Authorization'] + 'Token ' + token;
+          headers.Authorization = $http.defaults.headers.common['Authorization'] + ' Token ' + token;
         }
 
         return $http

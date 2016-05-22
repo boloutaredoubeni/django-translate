@@ -5,7 +5,8 @@ from app.models import Query
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     email = serializers.EmailField()
-    queries = serializers.PrimaryKeyRelatedField(required=False, many=True,
+    queries = serializers.PrimaryKeyRelatedField(required=False,
+                                                 many=True,
                                                  queryset=Query.objects.all())
     password = serializers.CharField(write_only=True, required=True)
 
@@ -26,7 +27,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 class QuerySerializer(serializers.HyperlinkedModelSerializer):
     creator = serializers.ReadOnlyField(source='creator.username')
-    lang = serializers.CharField(required=False)
+    lang = serializers.CharField(read_only=True)
     translation = serializers.CharField(read_only=True)
 
     class Meta:
@@ -36,5 +37,4 @@ class QuerySerializer(serializers.HyperlinkedModelSerializer):
                   'creator',
                   'source',
                   'lang',
-                  'creator',
                   'translation',)

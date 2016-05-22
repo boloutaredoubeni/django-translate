@@ -12,7 +12,7 @@
 
     var service = {
       register: register,
-      delete: delete,
+      delete: deleteUser,
       update: update,
       authenticated: authenticated,
     };
@@ -21,7 +21,7 @@
       return $http.post(url, user);
     }
 
-    function delete() {
+    function deleteUser() {
       if (self.authenticated()) {
         // TODO: allow account deletion
         // TODO: make sure delegators call this method i.e. view -> ctrl -> delete -> logout
@@ -35,12 +35,7 @@
     }
 
     function authenticated() {
-      var token = authenticated.getToken();
-      if (token) {
-        var params = self.decode(token);
-        return Math.round(new Date().getTime() / 1000) <= params.exp;
-      }
-      return false;
+      return authentication.isAuthenticated();
     }
 
     return service;

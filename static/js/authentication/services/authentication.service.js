@@ -19,6 +19,7 @@
       decode: decode,
       storeToken: storeToken,
       getToken: getToken,
+      isAuthenticated: isAuthenticated,
     };
 
     function login(user) {
@@ -54,6 +55,16 @@
     function getToken() {
       return $window.localStorage[JWT_TOKEN];
     }
+
+    function isAuthenticated() {
+      var token = self.getToken();
+      if (token) {
+        var params = self.decode(token);
+        return Math.round(new Date().getTime() / 1000) <= params.exp;
+      }
+      return false;
+    }
+
 
     return service;
   }
