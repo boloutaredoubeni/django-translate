@@ -5,13 +5,13 @@
     .module('translator.authentication.controllers')
     .controller('SignupController', SignupController);
 
-  SignupController.$inject = ['$scope', 'user'];
+  SignupController.$inject = ['$scope', 'User', 'authentication'];
 
-  function SignupController($scope, user) {
+  function SignupController($scope, User) {
     $scope.user = {};
     $scope.register = function() {
-      user
-        .register($scope.user)
+      User
+        .register($scope.user.password)
         .then(
           function(response) {
             console.dir(response);

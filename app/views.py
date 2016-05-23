@@ -1,3 +1,4 @@
+
 from django.contrib.auth.models import User
 from app.models import Query
 from rest_framework import permissions, viewsets, status, renderers
@@ -7,6 +8,7 @@ from app.serializers import QuerySerializer, UserSerializer
 from django.views.generic.base import TemplateView
 from django.conf import settings
 from urllib.parse import urljoin
+import jwt
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -29,14 +31,33 @@ class QueryViewSet(viewsets.ModelViewSet):
     serializer_class = QuerySerializer
     permission_classes = (IsOwnerOrReadOnly,)
 
-    def perform_create(self, serializer):
-        serializer.save(creator=self.request.user)
+    @staticmethod
+    def get_user_from_token(token):
+        payload = jwt.decode(token, settings.SECRET_KEY)
+        import sys; print(payload, sys.stderr)
+        del payload['exp']
+        payload['id'] = payload['user_id']
+        del payload['user_id']
+        return User.objects.get(**payload).id
+
+    # def perform_create(self, serializer):
+    #     user = _get_user_from_token(self.request)
+    #     serializer.save(creator_id=user.id)
 
     def create(self, request):
         if request.method == 'POST':
-            serializer = self.serializer_class(data=request.data)
+            # FIXME: Return 4xx if token expired
+            # import sys; print(request.META, file=sys.stderr)
+            # import ipdb; ipdb.sys_trace()
+            token = request.META.get('HTTP_AUTHORIZATION').split()[1]
+            user_id = self.get_user_from_token(token)
+            data = request.data
+            data['creator_id'] = user_id
+            import sys; print(self.serializer_class.__dict__)
+            serializer = self.serializer_class(data=data)
+
             if serializer.is_valid():
-                serializer.save()
+                serializer.save(creator_id=user_id)
                 return Response(serializer.data,
                                 status=status.HTTP_201_CREATED)
 
@@ -51,9 +72,6 @@ class QueryViewSet(viewsets.ModelViewSet):
         # todo: enable this
         pass
 
-# class UserViewSet(viewsets.ReadOnlyModelViewSet):
-# g
-
 
 class AngularView(TemplateView):
     template_name = 'index.html'
@@ -65,5 +83,6 @@ class AngularView(TemplateView):
         context['api_url'] = api_url
         context['ng_version'] = '1.5.5'
         context['ui_router_version'] = '0.3.0'
-        context['ng_material_version'] = '1.0.7'
+        context['ng_material_version'] = '1.0.0'
+        context['app_name'] = 'django Translate'
         return context

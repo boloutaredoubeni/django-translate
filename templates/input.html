@@ -1,17 +1,18 @@
  {# input.html #}
+ {# TODO: make into a pop up form #}
   <script id="templates/input.html" type="text/ng-template">
-    <h3>Translate Some Text</h3>
+     <md-subheader class="md-primary">Translate Some text</md-subheader>
     <form name="translationForm">
       {% csrf_token %}
-      <div class="row">
-        <textarea name="submission" ng-model="vm.sourceText" class="u-full-width" placeholder="Que voulez-vous traduire?" id="sourceLang" ng-minlength=10 required></textarea>
+      <md-input-container class="md-block">
+        <textarea name="submission" ng-model="sourceText" class="u-full-width" placeholder="Que voulez-vous traduire?" id="sourceLang" md-minlength=10 rows="5" required></textarea>
         <span ng-show="vm.errorMessage">{% verbatim %}{{ errorMessage }}{% endverbatim %}</span>
-      </div>
-      <div class="row u-pull-right">
+      </md-input-container>
+      <div>
         {# TODO: show in the ui that this is disabled #}
-        <button class="button-primary" ng-click="vm.sendToServer()" ng-disabled="translationForm.$invalid">Submit</button>
+        <md-button class="md-raised md-primary md-hue-1" ng-click="sendToServer()" ng-disabled="translationForm.$invalid">Submit</md-button>
       </div>
-      <div ng-messages="translationForm.submission.$error" ng-show="translationForm.submission.$touched">
+      <div ng-messages="translationForm.submission.$error" ng-show="translationForm.submission.$touched" role="alert" multiple md-auto-hide="false">
         <div ng-message="required">This cannot be blank</div>
         <div ng-message="minlength">Query is too short</div>
       </div>

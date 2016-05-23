@@ -21,6 +21,7 @@
         .then(
           // success
           function(response) {
+            console.dir(response);
             if (!response.success) {
               $scope.errorMessage = response.data.detail;
               return;
@@ -30,6 +31,7 @@
           },
           // error
           function(error) {
+            console.dir(error);
             $scope.sourceText = '';
             $scope.errorMessage = error.data.detail;
             $scope.status = error;

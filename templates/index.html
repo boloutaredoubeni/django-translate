@@ -3,22 +3,14 @@
 <html lang="en" ng-app="translator">
 <head>
   <meta charset="utf-8">
-  <title>Translator</title>
+  <title>{{ app_name }}</title>
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.css">
 </head>
-<body>
-  <div flex layout="row">
-    <!-- <md-sidenav class="md-whiteframe-z2"> -->
-      <a ui-sref="input">Input</a>
-      <a ui-sref="results">Results</a>
-      <a ui-sref="login">Login</a>
-      <a ui-sref="signup">Sign Up</a>
-      <a href="/docs">Api Doc</a>
-    <!-- </md-sidenav> -->
-    <md-content flex>
-      <ui-view>Loading ...</ui-view>
-    </md-content>
-  </div>
+<body ng-cloak>
+  {%  include "toolbar.html" %}
+  <md-content layout="row" layout-align="center center">
+    <ui-view >Loading ...</ui-view>
+  </md-content>
   {% include "scripts.html" %}
   {% include "results.html" %}
   {% include "input.html" %}

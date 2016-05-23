@@ -11,19 +11,19 @@
                            'ngMaterial',
                            'translator.authentication',
                            'translator.translation',
-                           'ngCookies']);
+                           'ngCookies',
+                           'ngMessages']);
 
   angular
     .module('translator')
     .constant('API_ENDPOINT', '/api/v1')
     .constant('JWT_TOKEN', 'jW10k3n')
-    .config(config)
+
     .config(function($httpProvider) {
       $httpProvider.defaults.xsrfCookieName = 'csrftoken';
       $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     })
-
-  function config($stateProvider, $urlRouterProvider) {
+    .config(function($stateProvider, $urlRouterProvider) {
 
      $urlRouterProvider.otherwise('/');
 
@@ -49,5 +49,11 @@
          templateUrl: 'templates/signup.html',
          controller: 'SignupController as vm',
        })
-   }
+  })
+  .config(function($mdThemingProvider) {
+    $mdThemingProvider
+      .theme('altTheme')
+      .primaryPalette('purple');
+  });
+
 })();

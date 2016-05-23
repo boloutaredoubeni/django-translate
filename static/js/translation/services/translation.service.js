@@ -11,21 +11,22 @@
     return {
       translate: function(source) {
         // Todo: try if authenticated else redirect
-        var headers = {};
+        var config = {
+          headers: {},
+        };
         var token = authentication.getToken();
         if (token) {
           console.log('Token found');
-          headers.Authorization = $http.defaults.headers.common['Authorization'] + ' Token ' + token;
+          config.headers.Authorization = 'Bearer ' + token;
         }
+
+        console.log('Translating');
 
         return $http
         // todo: authenticate via interceptr request
-          .post(API_ENDPOINT + '/queries/', {
-            headers: headers,
-            data: {
-              source: source,
-            }
-          });
+          .post(API_ENDPOINT + '/queries/',
+             { source: source },
+                config);
       },
        // TODO: allow pagination
       list: function() {
