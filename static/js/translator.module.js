@@ -4,11 +4,9 @@
   'use strict';
 
   angular
-    .module('translator.services', ['ngCookies']);
-
-  angular
     .module('translator', ['ui.router',
                            'ngMaterial',
+                           'translator.layout',
                            'translator.authentication',
                            'translator.translation',
                            'ngCookies',

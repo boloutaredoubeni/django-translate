@@ -5,9 +5,9 @@
     .module('translator.authentication.services')
     .factory('user', user);
 
-  user.$inject = ['$http', 'API_ENDPOINT', 'authenticaion'];
+  user.$inject = ['$http', 'API_ENDPOINT', 'authentication'];
 
-  function user($http, API_ENDPOINT, authenticaion) {
+  function user($http, API_ENDPOINT, authentication) {
     var url = API_ENDPOINT + '/users/';
 
     var service = {

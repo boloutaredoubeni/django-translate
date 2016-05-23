@@ -1,22 +1,32 @@
  {# input.html #}
  {# TODO: make into a pop up form #}
   <script id="templates/input.html" type="text/ng-template">
-     <md-subheader class="md-primary">Translate Some text</md-subheader>
-    <form name="translationForm">
+    <form name="translationForm" class="pure-form pure-form-aligned">
       {% csrf_token %}
-      <md-input-container class="md-block">
-        <textarea name="submission" ng-model="sourceText" class="u-full-width" placeholder="Que voulez-vous traduire?" id="sourceLang" md-minlength=10 rows="5" required></textarea>
-        <span ng-show="vm.errorMessage">{% verbatim %}{{ errorMessage }}{% endverbatim %}</span>
-      </md-input-container>
-      <div>
-        {# TODO: show in the ui that this is disabled #}
-        <md-button class="md-raised md-primary md-hue-1" ng-click="sendToServer()" ng-disabled="translationForm.$invalid">Submit</md-button>
-      </div>
-      <div ng-messages="translationForm.submission.$error" ng-show="translationForm.submission.$touched" role="alert" multiple md-auto-hide="false">
-        <div ng-message="required">This cannot be blank</div>
-        <div ng-message="minlength">Query is too short</div>
-      </div>
+      <fieldset class="pure-group">
+        <textarea
+          name="submission"
+          ng-model="sourceText"
+          class="pure-input-1-2"
+          placeholder="Que voulez-vous traduire?"
+          ng-minlength=10
+          rows="5"
+          required></textarea>
+        <span ng-show="vm.errorMessage">
+          {% verbatim %}{{ errorMessage }}{% endverbatim %}
+        </span>
+      </fieldset>
+      <button
+        class="pure-button pure-input-1-2 pure-button-primary"
+        ng-click="sendToServer()"
+        ng-disabled="translationForm.$invalid"
+        type="submit">Submit</button>
+        <div
+          ng-messages="translationForm.submission.$error"
+          ng-show="translationForm.submission.$touched">
+          <div ng-message="required">This cannot be blank</div>
+          <div ng-message="minlength">Query is too short</div>
+        </div>
     </form>
-    <pre>{% verbatim %}{{ sourceText }}{{ status | json }}{% endverbatim %}</pre>
     {# TODO: show translated data, link to #}
   </script>

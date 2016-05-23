@@ -1,21 +1,40 @@
 {# templates/login.html #}
   <script type="text/ng-template" id="templates/login.html">
-    <md-subheader class="md-primary">Login</md-subheader>
-    <form name="loginForm">
-      {% csrf_token %}
-      <!-- <md-input-container class="md-block"> -->
-        <label for="usernameInput" />
-        <input rows="1" type="text" placeholder="Username or email" id="username" ng-model="user.username" required/>
-     <!--  </md-input-container>
-      <md-input-container class="md-block"> -->
-        <label for="password" />
-        <input type="password" placeholder="Password" ng-model="user.password" id="password" required rows="1"/>
-        <span ng-show="errorMessage">{% verbatim %}{{ errorMessage }}{% endverbatim %}</span>
-      <!-- </md-input-container> -->
-      <md-button class="md-raised md-primary md-hue-1" ng-click="login()" ng-disabled="loginForm.$invalid">Login</md-button>
-      <div ng-messages="loginForm.submission.$error" ng-show="loginForm.submission.$touched" multiple role="alert" md-auto-hide="false">
-        <div ng-message="required">Input cannot be blank</div>
-      </div>
+    <form name="loginForm" class="pure-form pure-form-aligned">
+      <fieldset>
+        {% csrf_token %}
+
+        <div class="pure-control-group">
+          <label for="usernameInput">Username</label>
+          <input
+            type="text"
+            class="pure-input-1-2"
+            placeholder="Username or email"
+            ng-model="user.username"
+            required/>
+        </div>
+
+        <div class="pure-control-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="pure-input-1-2"
+            placeholder="Password"
+            ng-model="user.password"
+            required />
+          <span ng-show="errorMessage">{% verbatim %}{{ errorMessage }}{% endverbatim %}</span>
+        </div>
+
+        <div class="pure-controls">
+          <button
+            class="pure-button pure-button-primary"
+            ng-click="login()"
+            ng-disabled="loginForm.$invalid">Login</button>
+        </div>
+
+        <div ng-messages="loginForm.submission.$error" ng-show="loginForm.submission.$touched">
+          <div ng-message="required">Input cannot be blank</div>
+        </div>
+      </fieldset>
     </form>
-    <pre>{% verbatim %}{{ user | json }}{% endverbatim %}</pre>
   </script>
