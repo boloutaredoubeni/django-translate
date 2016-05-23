@@ -9,7 +9,6 @@
 
   function InputController($scope, $location, translation) {
     $scope.sourceText = '';
-    $scope.status = '';
     $scope.errorMessage = '';
 
     $scope.sendToServer = function() {
@@ -19,12 +18,8 @@
         .then(
           // success
           function(response) {
-            if (!response.success) {
-              return;
-            }
             $scope.sourceText = '';
-            $location.path('/').replace();
-            $scope.apply();
+            $location.path('/');
           },
           // error
           function(error) {
