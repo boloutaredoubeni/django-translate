@@ -15,6 +15,8 @@ class Query(models.Model):
         ordering = ('created',)
 
     def save(self, *args, **kwargs):
-        # FIXME: do this some where else
-        self.lang, self.translation = translate(self.source)
+        try:
+            self.lang, self.translation = translate(self.source)
+        except Exception:
+            pass
         super(Query, self).save(*args, **kwargs)

@@ -27,6 +27,7 @@
             console.dir(error);
             $scope.sourceText = '';
             $scope.errorMessage = error.data.detail;
+            $location.path('/login');
           }
         );
     };

@@ -11,6 +11,7 @@ from urllib.parse import urljoin
 import jwt
 
 
+
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = (permissions.AllowAny, AppUserPermission)
@@ -34,26 +35,28 @@ class QueryViewSet(viewsets.ModelViewSet):
     @staticmethod
     def get_user_from_token(token):
         payload = jwt.decode(token, settings.SECRET_KEY)
-        import sys; print(payload, sys.stderr)
         del payload['exp']
         payload['id'] = payload['user_id']
         del payload['user_id']
         return User.objects.get(**payload).id
 
-    # def perform_create(self, serializer):
-    #     user = _get_user_from_token(self.request)
-    #     serializer.save(creator_id=user.id)
-
     def create(self, request):
         if request.method == 'POST':
-            # FIXME: Return 4xx if token expired
-            # import sys; print(request.META, file=sys.stderr)
-            # import ipdb; ipdb.sys_trace()
             token = request.META.get('HTTP_AUTHORIZATION').split()[1]
-            user_id = self.get_user_from_token(token)
+            user_id = None
+            try:
+                user_id = self.get_user_from_token(token)
+            except Exception:
+                resp_data = {
+                    'data': {
+                        'detail': 'Token is expired',
+                        'redirect': '/api/v1/login',
+                    }
+                }
+                return Response(resp_data,
+                                status=status.HTTP_401_UNAUTHORIZED)
             data = request.data
             data['creator_id'] = user_id
-            import sys; print(self.serializer_class.__dict__)
             serializer = self.serializer_class(data=data)
 
             if serializer.is_valid():
