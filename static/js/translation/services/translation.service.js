@@ -8,8 +8,12 @@
   translation.$inject = ['$http', 'API_ENDPOINT', 'authentication'];
 
   function translation($http, API_ENDPOINT, authentication) {
-    return {
-      translate: function(source) {
+    var service = {
+      translate: translate,
+      list: list,
+    };
+
+    function translate(source) {
         // Todo: try if authenticated else redirect
         var config = {
           headers: {},
@@ -25,10 +29,12 @@
           .post(API_ENDPOINT + '/queries/',
              { source: source },
                 config);
-      },
-      list: function() {
+      }
+
+    function list() {
         return $http.get(API_ENDPOINT + '/queries');
       }
-    }
+
+    return service;
   }
 })();

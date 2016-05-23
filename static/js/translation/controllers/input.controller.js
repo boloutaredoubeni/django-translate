@@ -7,7 +7,7 @@
 
   InputController.$inject = ['$scope', '$location', 'translation'];
 
-  function InputController($scope, translation) {
+  function InputController($scope, $location, translation) {
     $scope.sourceText = '';
     $scope.status = '';
     $scope.errorMessage = '';
@@ -23,7 +23,8 @@
               return;
             }
             $scope.sourceText = '';
-            $location.path('/')
+            $location.path('/').replace();
+            $scope.apply();
           },
           // error
           function(error) {
