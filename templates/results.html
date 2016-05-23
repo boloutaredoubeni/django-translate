@@ -1,14 +1,23 @@
 {# templates/results.html #}
   <script id="templates/results.html" type="text/ng-template">
-     <md-subheader class="md-primary">Translations</md-subheader>
-     <md-list layout-padding>
-      <md-list-item class="md-4-line" ng-repeat="query in queries">
-        {# TODO: make into icon #}
-        <h3>{% verbatim %}{{ query.lang }}{% endverbatim %}</h3>
-        <h4>{% verbatim %}{{ query.creator }}{% endverbatim %}</h4>
-        <p>{% verbatim %}{{ query.source }}{% endverbatim %}</p>
-        <p>{% verbatim %}{{ query.translation }}{% endverbatim %}</p>
-      </md-list-item>
-     </md-list>
-    <pre>{% verbatim %}{{ queries | json }}{% endverbatim %}</pre>
+    <table class="pure-table pure-table-horizontal"
+           style="width:100%"
+           ng-cloak>
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Language</th>
+          <th>Source</th>
+          <th>Translation</th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="query in queries">
+        <tr>
+          <td>{% verbatim %}{{ query.creator }}{% endverbatim %}</td>
+          <td>{% verbatim %}{{ query.lang }}{% endverbatim %}</td>
+          <td>{% verbatim %}{{ query.source }}{% endverbatim %}</td>
+          <td>{% verbatim %}{{ query.translation }}{% endverbatim %}</td>
+        </tr>
+      </tbody>
+    </table>
   </script>

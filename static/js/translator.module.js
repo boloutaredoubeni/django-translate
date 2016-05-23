@@ -29,12 +29,12 @@
 
      $stateProvider
        .state('results', {
-         url: '/translations',
+         url: '/',
          templateUrl: 'templates/results.html',
          controller: 'ResultsController as vm',
        })
        .state('input', {
-         url: '/',
+         url: '/translate',
          templateUrl: 'templates/input.html',
          controller: 'InputController as vm',
        })
