@@ -13,7 +13,7 @@ from django.core.wsgi import get_wsgi_application
 
 from dotenv import load_dotenv
 
-dot_env = os.path.join(os.path.dirname(__file__), '..', '.env')
+dot_env = os.path.join(os.path.dirname(__file__), '..', 'env')
 load_dotenv(dot_env)
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "translator.settings")

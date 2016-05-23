@@ -5,7 +5,7 @@
     .module('translator.translation.controllers')
     .controller('InputController', InputController);
 
-  InputController.$inject = ['$scope', 'translation'];
+  InputController.$inject = ['$scope', '$location', 'translation'];
 
   function InputController($scope, translation) {
     $scope.sourceText = '';
@@ -14,27 +14,21 @@
 
     $scope.sendToServer = function() {
       // TODO: make sure its validated
-      $scope.errorMessage = '';
-      $scope.status = 'Submitting ...';
       translation
         .translate($scope.sourceText)
         .then(
           // success
           function(response) {
-            console.dir(response);
             if (!response.success) {
-              $scope.errorMessage = response.data.detail;
               return;
             }
             $scope.sourceText = '';
-            $scope.status = response;
+            $location.path('/')
           },
           // error
           function(error) {
             console.dir(error);
             $scope.sourceText = '';
-            $scope.errorMessage = error.data.detail;
-            $scope.status = error;
           }
         );
     };

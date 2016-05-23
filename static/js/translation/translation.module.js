@@ -3,7 +3,6 @@
 
   angular
     .module('translator.translation', [
-                            // '',
                             'translator.translation.controllers',
                             'translator.translation.services']);
 

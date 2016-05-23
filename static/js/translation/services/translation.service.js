@@ -20,15 +20,12 @@
           config.headers.Authorization = 'Bearer ' + token;
         }
 
-        console.log('Translating');
 
         return $http
-        // todo: authenticate via interceptr request
           .post(API_ENDPOINT + '/queries/',
              { source: source },
                 config);
       },
-       // TODO: allow pagination
       list: function() {
         return $http.get(API_ENDPOINT + '/queries');
       }

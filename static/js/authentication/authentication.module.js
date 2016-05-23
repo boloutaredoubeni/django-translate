@@ -12,5 +12,11 @@
   angular
     .module('translator.authentication.controllers', []);
 
-
+  angular
+    .module('translator.authentication')
+    .constant('AUTH_EVENTS', {
+      loginSuccess: 'loginSuccess',
+      loginFailed: 'loginFailed',
+      tokenExpired: 'tokenExpired',
+    });
 })();

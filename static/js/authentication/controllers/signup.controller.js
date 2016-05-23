@@ -5,28 +5,26 @@
     .module('translator.authentication.controllers')
     .controller('SignupController', SignupController);
 
-  SignupController.$inject = ['$scope', 'user', 'authentication'];
+  SignupController.$inject = ['$scope', '$location', 'user', 'authentication', 'Session'];
 
-  function SignupController($scope, user, authentication) {
+  function SignupController($scope, $location, user, authentication, Session) {
     $scope.user = {};
+    $scope.errors = '';
     $scope.register = function() {
       user
-        .register($scope.user.password)
+        .register($scope.user)
         .then(
           function(response) {
-            console.dir(response);
-              if (response.status !==  200 ) {
-                $scope.errorMessage = response.data.detail;
-                return;
-              }
-              if (response.config.url.indexOf('{{ api_url }}') === 0 && response.data.token) {
+              if (response.data.token) {
                 console.log('Token found');
                 authentication.storeToken(response.data.token);
+                Session.setUsername($scope.user.username);
                }
               $scope.queries = response.data;
+              $location.path('/login');
             },
             function(error) {
-              console.dir(error);
+              Session.setUsername('');
               $scope.errorMessage = error;
             }
         );

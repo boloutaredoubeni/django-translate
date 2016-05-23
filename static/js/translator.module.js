@@ -5,7 +5,6 @@
 
   angular
     .module('translator', ['ui.router',
-                           'ngMaterial',
                            'translator.layout',
                            'translator.authentication',
                            'translator.translation',
@@ -47,11 +46,6 @@
          templateUrl: 'templates/signup.html',
          controller: 'SignupController as vm',
        })
-  })
-  .config(function($mdThemingProvider) {
-    $mdThemingProvider
-      .theme('altTheme')
-      .primaryPalette('purple');
   });
 
 })();

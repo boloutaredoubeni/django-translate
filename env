@@ -1,0 +1,4 @@
+DEBUG=True
+IP_ADDR=192.168.99.100
+GOOGLE_TRANSLATE_KEY=AIzaSyCBzeubceaQKRs5df05bXi0nkRqlwvKlts
+SECRET_KEY='=a(@j9ymavxli6u=4*-vstm29q8-*(2wqa98)y2plfl$f9@8+o'
