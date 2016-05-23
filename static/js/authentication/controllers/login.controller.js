@@ -14,12 +14,12 @@
 
   function LoginController($scope, $location, $rootScope, authentication, AUTH_EVENTS, Session) {
     $scope.user = {};
+    $scope.errors = {};
     $scope.login = function() {
       authentication
         .login($scope.user)
         .then(
           function(response) {
-            console.dir(response);
              if (response.status !==  200 ) {
               $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
               Session.setUsername('');
@@ -32,10 +32,12 @@
             Session.setUsername($scope.user.username);
             Session.setLoggedIn(true);
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+            $scope.errors = {};
             $location.path('/translate');
           },
           function(error) {
             Session.setUsername('');
+            $scope.errors = error.data;
             $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
           }
         );

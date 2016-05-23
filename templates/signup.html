@@ -11,7 +11,7 @@
           placeholder="Username"
           ng-model="user.username"
           required/>
-        <!-- <span ng-show="errors.username">{% verbatim %}{{ "Invalid Username" }}{% endverbatim %}</span> -->
+        <span ng-show="errors.username">{% verbatim %}{{ errors.username[0] }}{% endverbatim %}</span>
       </div>
 
       <div class="pure-control-group">
@@ -21,13 +21,13 @@
           placeholder="Email"
           ng-model="user.email"
           required/>
-        <!-- <span ng-show="errors.email">{% verbatim %}{{ "Invalid Email" }}{% endverbatim %}</span> -->
+        <span ng-show="errors.email">{% verbatim %}{{ errors.email[0] }}{% endverbatim %}</span>
       </div>
 
       <div class="pure-control-group">
           <label for="password">Password</label>
           <input type="password" placeholder="Password" ng-model="user.password" id="password" required/>
-          <!-- <span ng-show="errors.password">{% verbatim %}{{ "Wrong Password" }}{% endverbatim %}</span> -->
+          <span ng-show="errors.password">{% verbatim %}{{ "Wrong Password" }}{% endverbatim %}</span>
       </div>
 
       <div class="pure-control-group">
@@ -36,7 +36,7 @@
           type="password"
           placeholder="Confirm Password"
           required/>
-        <!-- <span ng-show="errors.password">{% verbatim %}{{ "Password Does not match" }}{% endverbatim %}</span> -->
+        <span ng-show="errors.password">{% verbatim %}{{ "Password Does not match" }}{% endverbatim %}</span>
       </div>
 
       <div class="pure-controls">

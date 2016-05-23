@@ -13,6 +13,7 @@
             ng-model="user.username"
             required/>
         </div>
+         <span ng-show="errors">{% verbatim %}{{ errors.username }}{% endverbatim %}</span>
 
         <div class="pure-control-group">
           <label for="password">Password</label>
@@ -22,7 +23,7 @@
             placeholder="Password"
             ng-model="user.password"
             required />
-        <!--   <span ng-show="errorMessage">{% verbatim %}{{ errorMessage }}{% endverbatim %}</span> -->
+          <span ng-show="errors.non_field_errors">{% verbatim %}{{ errors.non_field_errors[0] }}{% endverbatim %}</span>
         </div>
 
         <div class="pure-controls">

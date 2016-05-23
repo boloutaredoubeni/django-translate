@@ -18,6 +18,7 @@
         .then(
           // success
           function(response) {
+            $scope.errorMessage = '';
             $scope.sourceText = '';
             $location.path('/');
           },
@@ -25,6 +26,7 @@
           function(error) {
             console.dir(error);
             $scope.sourceText = '';
+            $scope.errorMessage = error.data.detail;
           }
         );
     };

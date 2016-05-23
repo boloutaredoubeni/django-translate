@@ -9,7 +9,7 @@
 
   function SignupController($scope, $location, user, authentication, Session) {
     $scope.user = {};
-    $scope.errors = '';
+    $scope.errors = {};
     $scope.register = function() {
       user
         .register($scope.user)
@@ -20,12 +20,12 @@
                 authentication.storeToken(response.data.token);
                 Session.setUsername($scope.user.username);
                }
-              $scope.queries = response.data;
+              $scope.errors = {};
               $location.path('/login');
             },
             function(error) {
               Session.setUsername('');
-              $scope.errorMessage = error;
+              $scope.errors = error.data;
             }
         );
     }
